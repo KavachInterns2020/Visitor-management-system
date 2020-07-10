@@ -1,0 +1,63 @@
+{% extends 'basic/dashboard.html' %}
+
+{% block content %}
+{% load static %}
+
+
+
+
+
+
+
+
+
+<form>
+    <div class="row mx-3 my-5">
+        <div class="col mx-5 my-6">
+            <div class="card card-body">
+                <div class="row">
+                   
+                    <div class="form-group col-md-3 mx-5 ">
+                    <label for="inputState">Visitor info:</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>choose...</option>
+                        <option>.1.</option>
+                        <option>.2.</option>
+                        <option>.3.</option>
+                        <option>.4.</option>
+                        <option>.5.</option>
+                    </select>
+                    </div>
+
+
+                    <div class="form-group col-md-3 mx-5 ">
+                        <label for="inputState">Event info:</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>choose...</option>
+                            <option>.1.</option>
+                            <option>.2.</option>
+                            <option>.3.</option>
+                            <option>.4.</option>
+                            <option>.5.</option>
+                        </select>
+                        </div>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

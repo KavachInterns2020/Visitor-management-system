@@ -1,0 +1,14 @@
+{% extends 'basic/dashboard.html' %}
+
+{% block content %}
+{% load static %}
+
+<p>Are you sure you want to delete "{{form}}"?</p>
+<form method="POST" action="{% url 'deletehost' form.host_id %}">
+    {% csrf_token %}
+    <a href="{% url 'host' %}">Cancle</a>
+    <input type="submit" name="Confiem">
+</form>
+
+
+{% endblock %}
