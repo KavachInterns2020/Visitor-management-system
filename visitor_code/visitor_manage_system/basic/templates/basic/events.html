@@ -1,0 +1,88 @@
+{% extends 'basic/dashboard.html' %}
+
+{% block content %}
+{% load static %}  
+
+
+
+
+
+
+
+<div class="row mx-5 my-5">
+	<div class="col-md mx-3">
+		<div class="card card-body">
+			<h5>Events:</h5>
+			<hr>
+			<a class="btn btn-outline-info  btn-sm btn-block" href="">Create events</a>
+			<!--  -->
+			<div>
+				<h6></h6>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>No of upcomming events </h5>
+			<hr>
+            <h4 style="text-align: center;padding: 10px">{{k}}</h4>
+           <br>
+		</div>
+    </div>
+    
+    <div class="col-md">
+		<div class="card card-body">
+			<h5>No of events completed</h5>
+			<hr>
+            <h4 style="text-align: center;padding: 10px">{{k}}</h4>
+           <br>
+		</div>
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md mx-5 my-5">
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Events Id</th>
+                    <th>Name</th>
+                    <th>Phone no.</th>
+                    <th>Date</th>
+                    <th>time</th>
+                </tr>
+                <tr>
+                    <th><a href="">update</a></th>
+                    <th><b>1</b></th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>  
+
+
+
+
+
+
+
+
+
+{% endblock %}
