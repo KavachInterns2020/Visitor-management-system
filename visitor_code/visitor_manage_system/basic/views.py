@@ -4,8 +4,6 @@ from .models import *
 import datetime
 from .forms import *
 from django.contrib import messages
-# Create your views here.
-
 
 
 def index(request):
@@ -90,6 +88,70 @@ def deletevisitor(request,pk):
 
 
 
+
+
+
+def events(request):
+    complete =0
+    event = Event.objects.all()
+    upcomming = event.count()
+    for i in event:
+        a = i.tag
+        if a == 'Complete':
+            complete +=1
+            i.option1 = True
+            i.option2 = False
+        else:
+            i.option1 = False
+            i.option2 = True
+    upcomming = upcomming - complete
+    return render(request,'basic/events.html',{'form':event,'complete':complete,'upcomming':upcomming})
+def createevent(request):
+    form =EventForm()
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            complete =0
+            event = Event.objects.all()
+            upcomming = event.count()
+            for i in event:
+                a = i.tag
+                if a == 'Complete':
+                    complete +=1
+                    i.option1 = True
+                    i.option2 = False
+                else:
+                    i.option1 = False
+                    i.option2 = True
+            upcomming = upcomming - complete
+            return render(request,'basic/events.html',{'form':event,'complete':complete,'upcomming':upcomming})
+    return render(request,'basic/create_event.html',{'form':form,'k':False})
+def updateevent(request,pk):
+    event = Event.objects.get(event_id=pk)
+    form = EventForm(instance=event)
+    if request.method == 'POST':
+        form = EventForm(request.POST,instance=event)
+        if form.is_valid():
+            form.save()
+            event = Event.objects.all()
+            return render(request,'basic/events.html',{'form':event,'k':False})
+    context={'form':form,'k':False}
+    return render(request,'basic/create_event.html',context)
+def deleteevent(request,pk):
+    event = Event.objects.get(event_id=pk)
+    if request.method == "POST":
+        event.delete()
+        event = Event.objects.all()
+        return render(request,'basic/events.html',{'form':event,'k':False})
+    return render(request,'basic/delete_event.html',{'form':event,'k':False}) 
+
+
+
+
+
+
+
 def visitdetails(request):
     form = VisitDetailsForm()
     visitdetail = VisitDetails.objects.all()
@@ -129,9 +191,16 @@ def visitdetails(request):
 
 
 
-def events(request):
-    event = Event.objects.all()
-    return render(request,'basic/events.html')
+
+
 
 def eventvisitor(request):
-    return render(request,'basic/eventvisitor.html')
+    form =EventVisitorForm()
+    if request.method == 'POST':
+        form = EventVisitorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Event guest  entered successfull")
+            form =EventVisitorForm()
+            return render(request,'basic/eventvisitor.html',{'form':form,'k':False})
+    return render(request,'basic/eventvisitor.html',{'form':form,'k':False})

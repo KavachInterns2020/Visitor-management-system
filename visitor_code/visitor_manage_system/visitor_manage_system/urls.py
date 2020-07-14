@@ -27,6 +27,7 @@ admin.site.index_title = "Welcome to Visitor Management System"
 
 urlpatterns = [
     path('',include('basic.urls')),
+    path('hello/',include('different.urls')),
     path('admin/', admin.site.urls),
 ]
 
