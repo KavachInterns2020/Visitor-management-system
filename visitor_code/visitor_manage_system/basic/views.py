@@ -4,6 +4,7 @@ from .models import *
 import datetime
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 
 def index(request):
@@ -204,3 +205,23 @@ def eventvisitor(request):
             form =EventVisitorForm()
             return render(request,'basic/eventvisitor.html',{'form':form,'k':False})
     return render(request,'basic/eventvisitor.html',{'form':form,'k':False})
+
+
+
+
+def handleSignup(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+        myuser = User.objects.create_user(username,email,pass1)
+        myuser.first_name = fname
+        myuser.last_name = lname
+        myuser.save()
+        messages.success(request,'Account have be created')
+        redirect('/')
+    visitor = VisitDetails.objects.all().order_by('-visit_id')
+    return render(request,'basic/dashboard.html',{'visitor':visitor,'k':True})

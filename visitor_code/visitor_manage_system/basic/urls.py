@@ -1,8 +1,13 @@
 from django.urls import path
-from . import views
+from basic import views
 
 urlpatterns = [
     path('',views.index,name='index'),
+
+    path('signup',views.handleSignup,name='handleSignup'),
+
+
+
 
     path('host/',views.host,name='host'),
     path('host/<str:pk>',views.hostdynamic,name='hostdynamic'),
