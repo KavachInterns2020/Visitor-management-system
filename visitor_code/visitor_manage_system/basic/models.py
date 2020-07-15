@@ -54,13 +54,7 @@ class VisitDetails(models.Model):
     def __str__(self):
         return str('Name :')+str(self.visit_detail)+str('------ Id :')+str(self.visit_id)
 
-
-class Tag(models.Model):
-    name = models.CharField(max_length=100,null=True)
-
-    def __str__(self):
-        return self.name
-
+ 
 class Event(models.Model):
     EVENT_PURPOSE = (
         ('Birthday','Birthday'),
@@ -69,14 +63,18 @@ class Event(models.Model):
         ('Festival','Festival'),
         ('General','General')
     )
-    tag = models.ManyToManyField(Tag)
+    TAG = (
+        ('Incomplete','Incomplete'),
+        ('Complete','Complete')
+    )
+    tag = models.CharField(max_length=12,choices=TAG,blank=True,null=True,default='blank')
     event_id = models.AutoField(primary_key=True)
     organizer = models.ForeignKey(Host,null=True, on_delete=models.SET_NULL)
-    event_date_time =models.DateTimeField(null=False,unique=True) 
+    event_date_time =models.DateTimeField(null=False,unique=True,max_length=20,default='') 
     event_purpose = models.CharField(max_length=12,choices=EVENT_PURPOSE)
 
     def __str__(self):
-        return str(self.organizer)+str(self.event_id)
+        return str(self.organizer)+str('-----') +str(self.event_purpose)
 
 
 
