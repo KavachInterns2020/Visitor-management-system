@@ -5,13 +5,14 @@ class HostForm(ModelForm):
     class Meta:
         model = Host
         fields = '__all__'
-    
+        exclude = ['user']
 
 class VisitorForm(ModelForm):
     class Meta:
         model = Visitor
         fields = '__all__'
-
+        exclude = ['user']
+        
 class VisitDetailsForm(ModelForm):
     class Meta:
         model = VisitDetails
