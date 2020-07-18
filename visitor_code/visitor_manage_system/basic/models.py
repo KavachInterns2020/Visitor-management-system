@@ -1,8 +1,9 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Host(models.Model):
+    user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     host_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200,blank=False,default=' ')
     Phone_no = models.CharField(max_length=12,blank=False,default=' ')
@@ -12,7 +13,7 @@ class Host(models.Model):
     host_image = models.ImageField(null=True,blank=True,default='')
 
     def __str__(self):
-        return str('Name :')+str(self.name)+str('------ Id :')+str(self.host_id)
+        return str(self.name)
 
 class Visitor(models.Model):
     visitor_id = models.AutoField(primary_key=True)

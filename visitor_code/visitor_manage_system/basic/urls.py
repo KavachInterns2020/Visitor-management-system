@@ -5,12 +5,14 @@ urlpatterns = [
     path('',views.index,name='index'),
 
     path('signup',views.handleSignup,name='handleSignup'),
+    path('login',views.handlelogin,name='handlelogin'),
+    path('logout',views.handlelogout,name='handlelogout'),
 
 
 
 
     path('host/',views.host,name='host'),
-    path('host/<str:pk>',views.hostdynamic,name='hostdynamic'),
+    # path('host/<str:pk>',views.hostdynamic,name='hostdynamic'),
     path('create_host/',views.createhost,name='createhost'),
     path('update_host/<str:pk>',views.updateHost,name='updatehost'),
     path('delete_host/<str:pk>',views.deleteHost,name='deletehost'),
@@ -30,4 +32,11 @@ urlpatterns = [
     path('create_events/',views.createevent,name='createevent'),
     path('update_events/<str:pk>',views.updateevent,name='updateevent'),
     path('delete_event/<str:pk>',views.deleteevent,name='deleteevent'),
+
+
+    path('user/',views.userpage,name='userpage'),
+
+    path('account',views.accountsettings,name='account')
+
+
 ]

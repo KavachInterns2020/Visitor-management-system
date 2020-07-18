@@ -31,10 +31,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav px-3">
-        <li class="nav-item px-3">
+       
+        {% if request.user.is_superuser %}
+         <li class="nav-item px-3">
           <a class="nav-link" href="{%  url 'index' %}">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item px-3">
+           <li class="nav-item px-3">
           <a class="nav-link" href="{% url 'host' %}">host</a>
         </li>
         <li class="nav-item px-3">
@@ -49,9 +51,35 @@
         <li class="nav-item px-3">
           <a class="nav-link" href="{% url 'eventvisitor' %}">event visitor</a>
         </li>
-        
+
+
+        {% endif %}
+        {% if request.user.is_staff and not request.user.is_superuser %}
+         <li class="nav-item px-3">
+          <a class="nav-link" href="{%  url 'index' %}">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link" href="{% url 'visitor' %}">visitor</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link" href="{% url 'visitdetails' %}">visit entry</a>
+        </li>
+        <li class="nav-item px-3">
+          <a class="nav-link" href="{% url 'eventvisitor' %}">event visitor</a>
+        </li>
+        {% endif %}
+        {% if request.user.is_active and not request.user.is_superuser and not request.user.is_staff%}
+            <li class="nav-item px-3">
+          <a class="nav-link primary" href="/user">User</a>
+        </li> 
+         <li class = "nav-item">
+          <a class='nav-link' href={% url 'account' %}>Settings</a>
+         </li>
+         {% endif %}
       </ul>
     </div>
+
+    {% if not user.is_authenticated %}
     <div>
         <ul class="nav-item px-3">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
@@ -66,6 +94,26 @@
           </button>
         </ul>
     </div>
+  {% else %}
+         
+
+
+ <div>
+        <ul class="nav-item px-3">
+          <button type="button" class="btn btn-primary" >
+            Welcome,{{request.user}}
+          </button>
+        </ul>
+    </div>
+    <div>
+       <ul class="nav-item px-3">
+          <button type="button" class="btn btn-primary" >
+               <a class="btn btn-primary"  href="/logout" >Logout</a>
+          </button>
+        </ul>
+    </div>
+
+  {% endif %}
   </nav>
 
 
@@ -147,7 +195,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <form >
+          <form method='post' action='/login'>
+          {%  csrf_token %}
               <div class="form-group">
                 <label for="username">User name :</label>
                 <input type="text" class="form-control" id="username"name = "username"placeholder="choose a unique user name">
@@ -155,13 +204,13 @@
 
 
                <div class="form-group">
-                <label for="pass">Password :</label>
-                <input type="password" class="form-control" id="pass"name = "pass">
+                <label for="password">Password :</label>
+                <input type="password" class="form-control" id="password"name = "password">
               </div>
 
                <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
               </div>
 
           </form>
@@ -174,7 +223,7 @@
 
 
 
-
+{% if  request.user.is_active and request.user.is_staff and  not request.user.is_superuser%}
   {% if k %}
   <div class="row">
     <div class="col-md mx-5 my-5">
@@ -201,19 +250,47 @@
       </div>
     </div>
   </div>
-
-
-
-
-
   {% endif %}
+{% endif %}
+
+
+{% if  request.user.is_active and request.user.is_superuser  %}
+  {% if k %}
+  <div class="row">
+    <div class="col-md mx-5 my-5">
+      <div class="card card-body">
+        <table class="table table-dark">
+          <tr>
+            <th scope="col">Visitor Details </th>
+            <th scope="col">Visit DateTime</th>
+            <th scope="col">Purpose</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Flat No</th>
+          </tr>
+          {%  for i in visitor %}
+          <tr>
+            <th><b>{{i.visit_detail.name}}</b></th>
+            <th>{{i.visit_date}}</th>
+            <th>{{i.purpose}}</th>
+            <th>{{i.duration}}</th>
+            <th>{{i.flat_no}}</a></th>
+
+          </tr>
+          {%  endfor  %}
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endif %}
 
 
 
 
+{% if not  request.user.is_active and  not request.user.is_superuser  and not request.user.is_staff%}
 
-
-
+<b>hi</b>
+{% endif %}
 
 
 
