@@ -24,7 +24,7 @@
 
 
   <nav class=" navbar navbar-expand-lg navbar-dark bg-dark  my-3">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Visitor Mgmt System</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,19 +37,19 @@
           <a class="nav-link" href="{%  url 'index' %}">Home <span class="sr-only">(current)</span></a>
         </li>
            <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'host' %}">host</a>
+          <a class="nav-link" href="{% url 'host' %}">Host</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'visitor' %}">visitor</a>
+          <a class="nav-link" href="{% url 'visitor' %}">Visitor</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'visitdetails' %}">visit entry</a>
+          <a class="nav-link" href="{% url 'visitdetails' %}">Visit Entry</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'events' %}">event</a>
+          <a class="nav-link" href="{% url 'events' %}">Event</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'eventvisitor' %}">event visitor</a>
+          <a class="nav-link" href="{% url 'eventvisitor' %}">Event Visitor</a>
         </li>
 
 
@@ -59,13 +59,13 @@
           <a class="nav-link" href="{%  url 'index' %}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'visitor' %}">visitor</a>
+          <a class="nav-link" href="{% url 'visitor' %}">Visitor</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'visitdetails' %}">visit entry</a>
+          <a class="nav-link" href="{% url 'visitdetails' %}">Visit Entry</a>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="{% url 'eventvisitor' %}">event visitor</a>
+          <a class="nav-link" href="{% url 'eventvisitor' %}">Event Visitor</a>
         </li>
         {% endif %}
         {% if request.user.is_active and not request.user.is_superuser and not request.user.is_staff%}
@@ -99,16 +99,16 @@
 
 
  <div>
-        <ul class="nav-item px-3">
-          <button type="button" class="btn btn-primary" >
-            Welcome,{{request.user}}
-          </button>
+        <ul class="nav-item px-3" style="color: white; font-size: large; padding-top: 10px;">
+          <!-- <button type="button" class="btn btn-primary" > -->
+            Welcome, {{request.user}}
+          <!-- </button> -->
         </ul>
     </div>
     <div>
-       <ul class="nav-item px-3">
+       <ul class="nav-item px-3" style="padding-bottom: 0px;">
           <button type="button" class="btn btn-primary" >
-               <a class="btn btn-primary"  href="/logout" >Logout</a>
+               <a class="btn-primary"  href="/logout" >Logout</a>
           </button>
         </ul>
     </div>
@@ -229,7 +229,7 @@
     <div class="col-md mx-5 my-5">
       <div class="card card-body">
         <table class="table table-dark">
-          <tr>
+          <tr style="font-style: italic;">
             <th scope="col">Visitor Details </th>
             <th scope="col">Visit DateTime</th>
             <th scope="col">Purpose</th>
@@ -260,7 +260,7 @@
     <div class="col-md mx-5 my-5">
       <div class="card card-body">
         <table class="table table-dark">
-          <tr>
+          <tr style="background-color: rgb(131, 131, 131); font-style: italic; font-size: 18px;">
             <th scope="col">Visitor Details </th>
             <th scope="col">Visit DateTime</th>
             <th scope="col">Purpose</th>
