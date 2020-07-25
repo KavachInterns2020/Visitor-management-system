@@ -2,32 +2,18 @@
 
 {% block content %}
 {% load static %}
-<style>
-    form{
-        width: 60%;
-        margin-left: 500px;
-    }
-    span{
-        font-size: 20px;
-    }
-   
-</style>
+
 
 <form action="" method="POST">
     {%  csrf_token %}
-    <div class="col mx-5 my-5" id="frm">
-        <h4>Name : <span>{{form.name}}</span></h4>
-        <br>
-        <h4>Phone No : <span>{{form.Phone_no}}</span></h4>
-        <br>
-        <h4>Email Id: <span>{{form.email_id}}</span></h4>
-        <br>
-        <h4>Flat No:  <span>{{form.flat_no}}</span></h4>
-        <br>
-        <h4>No. of people:  <span>{{form.no_of_people}}</span></h4>
-        <br>
-        <input class="btn btn-primary" type="submit" name="Submit"> 
+    <div class='row mx-5 '>
+        <div class = 'col-md-6'>
+    <div class="col mx-5 my-5" >
+        {{form.as_p}}
+        <input type="submit" name="Submit"> 
     </div>
+</div>
+</div>
     
 </form>
 
