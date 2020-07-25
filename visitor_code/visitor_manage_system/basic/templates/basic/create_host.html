@@ -8,12 +8,22 @@
     {%  csrf_token %}
     <div class='row mx-5 '>
         <div class = 'col-md-6'>
-    <div class="col mx-5 my-5" >
-        {{form.as_p}}
-        <input type="submit" name="Submit"> 
+            <div class="col mx-5 my-5" >
+                {% if S %}
+                User name :<input name='username' type='text' placeholder="username">
+                <br>
+                <br>
+                {% endif %}
+                {{form.as_p}}
+                {% if S %}
+                Password :<input name='password' type='password' placeholder="password">
+                <br>
+                <br>
+                {% endif %}
+                <input type="submit" name="Submit"> 
+            </div>
+        </div>
     </div>
-</div>
-</div>
     
 </form>
 

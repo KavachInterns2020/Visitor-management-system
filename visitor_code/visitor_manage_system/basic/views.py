@@ -32,11 +32,20 @@ def createhost(request):
     if request.method == 'POST':
         form = HostForm(request.POST)
         if form.is_valid():
+            username = request.POST['username']
+            password = request.POST['password']
+            email = request.POST['email_id']
+            myuser = User.objects.create_user(username,email,password)
+            myuser.first_name = username
+            myuser.last_name = username
+            myuser.save()
             form.save()
+            group = Group.objects.get(name='host')
+            myuser.groups.add(group)
             host =Host.objects.all().order_by('host_id')
             count = host.count()
             return render(request,'basic/host.html',{'host':host,'count':count})
-    context={'form':form,'k':False}
+    context={'form':form,'k':False,'S':True}
     return render(request,'basic/create_host.html',context)
 # @admin_only
 @login_required(login_url='/')
@@ -50,8 +59,8 @@ def updateHost(request,pk):
             form.save()
             host =Host.objects.all().order_by('host_id')
             count = host.count()
-            return render(request,'basic/host.html',{'host':host,'count':count,'k':False})    
-    context={'form':form,'k':False}
+            return render(request,'basic/host.html',{'host':host,'count':count,'k':False,'S':False})    
+    context={'form':form,'k':False,'S':False}
     return render(request,'basic/create_host.html',context)
 
 @login_required(login_url='/')
@@ -152,7 +161,11 @@ def createevent(request):
                     i.option1 = False
                     i.option2 = True
             upcomming = upcomming - complete
-            return render(request,'basic/events.html',{'form':event,'complete':complete,'upcomming':upcomming})
+            group = request.user.groups.all()[0].name
+            if group == 'host':
+                return redirect('/user')
+            elif group != 'host':
+                return render(request,'basic/events.html',{'form':event,'complete':complete,'upcomming':upcomming})
     return render(request,'basic/create_event.html',{'form':form,'k':False})
 
 @login_required(login_url='/')
@@ -165,7 +178,8 @@ def updateevent(request,pk):
         if form.is_valid():
             form.save()
             event = Event.objects.all()
-            return render(request,'basic/events.html',{'form':event,'k':False})
+            return redirect('/events',{'form':event,'k':False})
+            # return render(request,'basic/events.html',{'form':event,'k':False})
     context={'form':form,'k':False}
     return render(request,'basic/create_event.html',context)
 @login_required(login_url='/')
@@ -270,9 +284,8 @@ def handlelogin(request):
             group = request.user.groups.all()[0].name
             if group == 'host':
                 return redirect('/user')
-            if group is not 'host':
+            if group != 'host':
                 return redirect('/')
-
         else:
             messages.error(request,'Creadential wrond')
             visitor = VisitDetails.objects.all().order_by('-visit_id')
