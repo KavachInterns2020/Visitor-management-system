@@ -6,11 +6,11 @@ class Host(models.Model):
     user = models.OneToOneField(User,null=True,on_delete=models.CASCADE)
     host_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200,blank=False,default=' ')
-    Phone_no = models.CharField(max_length=12,blank=False,default=' ')
-    email_id = models.EmailField(max_length=200,blank=False,default='')
+    Phone_no = models.IntegerField(default=910123456789)       
+    email_id = models.EmailField(max_length=200,blank=True,unique=True,default='')
     flat_no = models.IntegerField(unique=True,blank=False,default=0)
     no_of_people = models.IntegerField(blank=False,default=0)
-    host_image = models.ImageField(null=True,blank=True,default='')
+    host_image = models.ImageField(null=True,blank=True,default='download.jpeg')
 
     def __str__(self):
         return str(self.name)
@@ -20,8 +20,8 @@ class Visitor(models.Model):
     name = models.CharField(max_length=200,blank=False,default='',unique=True)
     Phone_no = models.CharField(max_length=12,blank=False,default=' ')
     email_id = models.EmailField(max_length=200,blank=False,default='')
-    visitor_image = models.ImageField(null=True,blank=True,default='')
-    id_proof = models.ImageField(null=True,default='',blank=True)
+    visitor_image = models.ImageField(null=True,blank=False,default='')
+    id_proof = models.ImageField(null=True,default='',blank=False)
 
     def __str__(self):
         return str('Name :')+str(self.name)+str('...Id :')+str(self.visitor_id)+str('...email_id:')+str(self.email_id)

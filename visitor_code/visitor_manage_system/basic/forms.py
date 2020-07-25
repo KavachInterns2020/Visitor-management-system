@@ -1,7 +1,18 @@
 from django.forms import ModelForm
 from .models import *
+from django import forms
+from django.core import validators
+
+
+
+def checkforpeople(value):
+    if value>5:
+        raise forms.ValidationError("residents are more than allowed")
+
 
 class HostForm(ModelForm):
+    no_of_people=forms.IntegerField(validators=[checkforpeople])
+    
     class Meta:
         model = Host
         fields = '__all__'
