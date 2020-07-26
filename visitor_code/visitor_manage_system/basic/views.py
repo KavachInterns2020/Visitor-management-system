@@ -35,11 +35,17 @@ def createhost(request):
             username = request.POST['username']
             password = request.POST['password']
             email = request.POST['email_id']
+            Phone_no = request.POST['Phone_no']
+            flat_no = request.POST['flat_no']
+            no_of_people = request.POST['no_of_people']
+            name = request.POST['name']
+
             myuser = User.objects.create_user(username,email,password)
             myuser.first_name = username
             myuser.last_name = username
             myuser.save()
-            form.save()
+            host = Host(user=myuser,name=name,email_id=email,no_of_people=no_of_people,flat_no=flat_no,Phone_no=Phone_no)
+            host.save()
             group = Group.objects.get(name='host')
             myuser.groups.add(group)
             host =Host.objects.all().order_by('host_id')
@@ -54,7 +60,7 @@ def updateHost(request,pk):
     host = Host.objects.get(host_id=pk)
     form = HostForm(instance=host)
     if request.method == 'POST':
-        form = HostForm(request.POST,instance=host)
+        form = HostForm(request.POST,request.FILES,instance=host)
         if form.is_valid():
             form.save()
             host =Host.objects.all().order_by('host_id')

@@ -7,7 +7,7 @@ class Host(models.Model):
     host_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200,blank=False,default=' ')
     Phone_no = models.IntegerField(default=910123456789)       
-    email_id = models.EmailField(max_length=200,blank=True,unique=True,default='')
+    email_id = models.EmailField(max_length=200,default='')
     flat_no = models.IntegerField(default=0)
     no_of_people = models.IntegerField(blank=False,default=0)
     host_image = models.ImageField(null=True,blank=True,default='download.jpeg')
