@@ -1,2 +1,4 @@
 #ignore db file
 .SQLITE3
+#ignore pycache
+.cpython-38
